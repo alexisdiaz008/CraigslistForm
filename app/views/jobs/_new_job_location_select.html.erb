@@ -1,10 +1,7 @@
 <div class="row form-group-padding">
-	<div class="form-group col-md-offset-4 col-md-4">
-		<%= text_field_tag selector, nil, class: 'typeahead form-control', placeholder: "NEW #{selector.to_s.upcase}" %>
+	<div class="form-group col-md-2">
+		<%= text_field_tag selector, nil, class: 'typeahead form-control', placeholder: "ADD #{selector.to_s.upcase}" %>
 		<br>
-	</div>
-	<div class="form-group col-md-offset-2 col-md-8">
-		<span class="input-description"><%= selector_description_for(selector) %></span>
 	</div>
 </div>
 

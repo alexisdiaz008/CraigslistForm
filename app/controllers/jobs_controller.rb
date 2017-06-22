@@ -5,6 +5,7 @@ class JobsController < ApplicationController
   def index
     @job = current_user.jobs.new
     @jobs = current_user.jobs
+    @calendar_range=(Time.now.to_date.beginning_of_month .. Time.now.end_of_year-1.day)
   end
 
   def new

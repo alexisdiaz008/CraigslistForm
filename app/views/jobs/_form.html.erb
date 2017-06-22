@@ -1,11 +1,13 @@
-<%#= form_for(@company) do |f| %>
-		<%#= f.text_field :name, class:"form-control" %>
-		<%#= f.submit "CREATE A COMPANY",:class=>"lb-button"  %>
-		<%# if render_selectors.eql?(:new) %>
-			<%= render 'new_job_location_select', selector: :proximity_cities %>
-			<%= render 'new_job_location_select', selector: :cities %>
-		<%# elsif render_selectors.eql?(:edit) %>
-			<%#= render 'edit_job_location_select', selector: :cities %>
-			<%#= render 'edit_job_location_select', selector: :proximity_cities %>
-		<%# end %>
-<%#end %>
+<div class="row">
+	<%= form_for([current_user, @job]) do |f| %>
+		<div class="col-md-2">
+			<%= f.text_field :title, class:"form-control", placeholder: "title" %>
+		</div>
+		<div class="col-md-2">
+			<%= f.text_field :category, class:"form-control", placeholder: "category" %>
+		</div>
+		<div class="col-md-4">
+			<%= f.submit "create a job",:class=>"lb-button"  %>
+		</div>
+	<% end %>
+</div>

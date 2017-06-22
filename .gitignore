@@ -17,5 +17,7 @@
 !/log/.keep
 !/tmp/.keep
 
+/config/initializers/app_environment_variables.rb
+
 # Ignore Byebug command history file.
 .byebug_history

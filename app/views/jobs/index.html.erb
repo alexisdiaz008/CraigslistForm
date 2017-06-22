@@ -1,11 +1,14 @@
-<h1>Jobs#index</h1>
-<p class="test">Find me in app/views/jobs/index.html.erb</p>
-<div class="row">
+<div class="row center">
+<h1>JOB ORGANIZER</h1>
+<p>Start making jobs, today!</p>
+</div>
+<div class="row margin-bottom">
 	<%= form_for([current_user, @job]) do |f| %>
 		<div class="col-md-2">
 			<%= f.text_field :title, class:"form-control", placeholder: "title" %>
 		</div>
 		<div class="col-md-2">
+			<%#= f.select :age ,['8-15','16-25','26-35','36-45','46-55','56-65','66-75','75+'], class: "form-control" %>
 			<%= f.text_field :category, class:"form-control", placeholder: "category" %>
 		</div>
 		<div class="col-md-4">
@@ -17,13 +20,22 @@
 	
 		<% @jobs.each do |job| %>
 			<div class="col-md-12">
-				<%= best_in_place [current_user, job], :title, as: :input%>
-				<%= job.category %>
+				<div class="col-md-1">
 				<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
+				</div>
+				<div class="col-md-2">
+				<%= best_in_place [current_user, job], :title, as: :input%>
+				</div>
+				<div class="col-md-2">
+				<%= job.category %>
+				</div>
+				<!-- <div class="col-md-2"> -->
+				<%= render 'new_job_location_select', selector: :cities %>
+				<!-- </div> -->
+				<%= render "calendar", job: job %>
 			</div>
 		<% end %>
 </div>
-		<%= render 'form' %>
 
 <script type="text/javascript">
 $(document).ready(function() {

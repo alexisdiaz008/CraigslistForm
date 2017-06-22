@@ -11,11 +11,12 @@
 // about supported directives.
 //
 //= require jquery
-//= require best_in_place
+//= require jquery-ui
 //= require jquery_ujs
 //= require turbolinks
 //= require tag-it
 //= require twitter/typeahead.min
+//= require best_in_place
 //= require_tree .
 
 
