@@ -1,0 +1,204 @@
+ul.tagit {
+    height: 5em;
+    border: white;
+    background: gainsboro;
+    padding: 1px 5px;
+    overflow: auto;
+    margin-left: inherit; /* usually we don't want the regular ul margins. */
+    margin-right: inherit;
+}
+ul.tagit li {
+    display: block;
+    float: center;
+    margin: 2px 5px 2px 0;
+}
+ul.tagit li input {
+    background: gainsboro;
+}
+ul.tagit li.tagit-choice {
+    padding: .2em 18px .2em .5em;
+    position: relative;
+    line-height: inherit;
+}
+ul.tagit li.tagit-new {
+    padding: .25em 4px .25em 0;
+}
+
+ul.tagit li.tagit-choice a.tagit-label {
+    cursor: pointer;
+    text-decoration: none;
+}
+ul.tagit li.tagit-choice .tagit-close {
+    float: right;
+/*    cursor: pointer;
+    position: absolute;
+    right: .1em;
+    top: 50%;
+    margin-top: -8px;*/
+}
+
+/* used for some custom themes that don't need image icons */
+ul.tagit li.tagit-choice .tagit-close .text-icon {
+    display: none;
+}
+
+ul.tagit li.tagit-choice input {
+    display: block;
+    float: left;
+    margin: 2px 5px 2px 0;
+}
+ul.tagit input[type="text"] {
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:         border-box;
+
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    background-color: inherit;
+    outline: none;
+}
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-dropdown-menu {    /* used to be tt-dropdown-menu in older versions */
+  width: 422px;
+  margin-top: 4px;
+  padding: 4px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  line-height: 24px;
+}
+
+.tt-suggestion.tt-cursor,.tt-suggestion:hover {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
+
+.solid-underline {
+	border-bottom: 2px solid #cdcdcd;
+}
+.margin-top {
+	margin-top: 30px;
+}
+
+.margin-bottom {
+	margin-bottom: 30px;
+}
+
+.padding-bottom {
+	padding-bottom: 30px;
+}
+
+.center {
+	text-align: center;
+}
+
+.lb-button{
+	border-radius: 6px;
+	background-color: #2f98c1;
+	padding: 4px 35px;
+	color: #FFFFFF;
+	font-family: "Open Sans";
+	font-size: 16px;
+}
+.lb-x {
+	font-size: 16px;
+	color: #2B96C2;
+}
+ul.tagit li.tagit-choice.location-tab {
+	display: inline-block;
+	height: 3.5em;
+	margin: 6px;
+	padding: 15px 9px;
+	color: #2B96C2;
+	border: 2px solid #ddd;
+}
+
+ul.tagit li.tagit-choice.location-tab span.tagit-label {
+	margin: 0 1em;
+	float: left;
+	font-size: 16px;
+	color: #555555;
+	font-weight: 300;
+}
+.location-tab a {
+	margin: 0 1em;
+	float: left;
+	font-size: 16px;
+	color: #555555;
+	font-weight: 300;
+}
+.location-tab {
+	display: inline-block;
+	height: 3.5em;
+	margin: 6px;
+	padding: 15px 9px;
+	padding: 13px 9px;
+	color: #2B96C2;
+	border: 2px solid #ddd;
+}
+
+/* Calendar */
+.available :hover {
+	background-color: #00bf9d;
+}
+
+.unavailable {
+	background-color: #00bf9d;	
+}
+.greyed-out {
+	background-color: #00bf9d;	
+}
+
+.days {
+	padding: 2.5em;
+}
+
+.month {
+	font-size: 33px;
+}
+
+.calendar {
+	margin-bottom: 2em;
+}
