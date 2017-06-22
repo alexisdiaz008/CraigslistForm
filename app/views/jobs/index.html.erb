@@ -1,0 +1,32 @@
+<h1>Jobs#index</h1>
+<p class="test">Find me in app/views/jobs/index.html.erb</p>
+<div class="row">
+	<%= form_for([current_user, @job]) do |f| %>
+		<div class="col-md-2">
+			<%= f.text_field :title, class:"form-control", placeholder: "title" %>
+		</div>
+		<div class="col-md-2">
+			<%= f.text_field :category, class:"form-control", placeholder: "category" %>
+		</div>
+		<div class="col-md-4">
+			<%= f.submit "create a job",:class=>"lb-button"  %>
+		</div>
+	<% end %>
+</div>
+<div class="row">
+	
+		<% @jobs.each do |job| %>
+			<div class="col-md-12">
+				<%= best_in_place [current_user, job], :title, as: :input%>
+				<%= job.category %>
+				<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
+			</div>
+		<% end %>
+</div>
+		<%= render 'form' %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	jQuery(".best_in_place").best_in_place();
+});
+</script>
