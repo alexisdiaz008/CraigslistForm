@@ -16,6 +16,10 @@
 		<%= text_field_tag :market, nil, class: 'typeahead form-control', placeholder: 'Market' %>
 	</div>
 
+		<div class="col-md-2">
+			<%= select_tag :months,['Female','Male','Both','N/A'], class: "form-control" %>
+		</div>
+
 			<%#= render 'new_job_location_select', selector: :cities %>
 		<div class="col-md-2">
 			<%= f.submit "create a job",:class=>"lb-button"  %>

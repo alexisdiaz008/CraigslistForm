@@ -39,14 +39,6 @@ loadScript = function(url, callback){
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
-loadTinyMce = function(){
-	$(".best_in_place").best_in_place();
-
-	tinymce.init({
-		selector: '.tinymce'
-	});
-}
-
 loadExistingMarkets = function(collection){
 	$(".existing-locations").tagit({
     	onTagRemoved: function(event, ui){
