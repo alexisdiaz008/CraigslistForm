@@ -8,17 +8,40 @@
 			<%= f.text_field :title, class:"form-control", placeholder: "title" %>
 		</div>
 		<div class="col-md-2">
-			<%#= f.select :age ,['8-15','16-25','26-35','36-45','46-55','56-65','66-75','75+'], class: "form-control" %>
-			<%= f.text_field :category, class:"form-control", placeholder: "category" %>
+			<%= f.select :category, options_for_select(job_template_category_options, @job), {}, {:class=>'form-control', placeholder: 'category'} %>
 		</div>
-		<div class="col-md-4">
+		<!-- <div class="col-md-2"> -->
+		<div class="row form-group-padding">
+			<div class="form-group col-md-2">
+				<%= text_field_tag selector, nil, class: 'typeahead form-control', placeholder: "ADD #{selector.to_s.upcase}" %>
+				<br>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<input class="existing-<%= selector %>-locations" name="existing-<%= selector %>-locations[]" id="existing-<%= selector %>-locations" style="padding:0px;">
+					<% @job.locations.each do |location| %>
+
+					<% end %>
+				</input>
+			</div>
+		</div>
+
+<script>
+	loadSelectionPool(<%= selector %>, false);
+	locationSelector(<%= selector %>, false);
+</script>
+			<%#= render 'new_job_location_select', selector: :cities %>
+		<!-- </div> -->
+		<div class="col-md-2">
 			<%= f.submit "create a job",:class=>"lb-button"  %>
 		</div>
 	<% end %>
 </div>
 <div class="row">
 	
-		<% @jobs.each do |job| %>
+		<% @jobs.each_with_index do |job, index| %>
 			<div class="col-md-12">
 				<div class="col-md-1">
 				<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
@@ -27,12 +50,13 @@
 				<%= best_in_place [current_user, job], :title, as: :input%>
 				</div>
 				<div class="col-md-2">
-				<%= job.category %>
+				<%= best_in_place [current_user, job], :category, as: :input%>
+				<%=  "#{index}" %>
 				</div>
 				<!-- <div class="col-md-2"> -->
-				<%= render 'new_job_location_select', selector: :cities %>
+				<%#= render 'new_job_location_select', selector: :cities %>
 				<!-- </div> -->
-				<%= render "calendar", job: job %>
+				<%#= render "calendar", job: job %>
 			</div>
 		<% end %>
 </div>
