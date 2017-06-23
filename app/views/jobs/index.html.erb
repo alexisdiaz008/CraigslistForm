@@ -10,37 +10,30 @@
 		<div class="col-md-2">
 			<%= f.select :category, options_for_select(job_template_category_options, @job), {}, {:class=>'form-control', placeholder: 'category'} %>
 		</div>
-		<!-- <div class="col-md-2"> -->
-		<div class="row form-group-padding">
-			<div class="form-group col-md-2">
-				<%= text_field_tag selector, nil, class: 'typeahead form-control', placeholder: "ADD #{selector.to_s.upcase}" %>
-				<br>
-			</div>
-		</div>
 
-		<div class="row">
-			<div class="form-group">
-				<input class="existing-<%= selector %>-locations" name="existing-<%= selector %>-locations[]" id="existing-<%= selector %>-locations" style="padding:0px;">
-					<% @job.locations.each do |location| %>
 
-					<% end %>
-				</input>
-			</div>
-		</div>
+	<div class="col-md-2 job-create-location">
+		<%= text_field_tag :market, nil, class: 'typeahead form-control', placeholder: 'Market' %>
+	</div>
 
-<script>
-	loadSelectionPool(<%= selector %>, false);
-	locationSelector(<%= selector %>, false);
-</script>
 			<%#= render 'new_job_location_select', selector: :cities %>
-		<!-- </div> -->
 		<div class="col-md-2">
 			<%= f.submit "create a job",:class=>"lb-button"  %>
 		</div>
 	<% end %>
 </div>
 <div class="row">
-	
+
+
+<div class="row">
+	<div class="form-group">
+		<ul class="existing-locations" style="padding:0px">
+			<% @job.locations.each do |location| %>
+
+			<% end %>
+		<ul>
+	</div>
+</div>
 		<% @jobs.each_with_index do |job, index| %>
 			<div class="col-md-12">
 				<div class="col-md-1">
@@ -49,10 +42,13 @@
 				<div class="col-md-2">
 				<%= best_in_place [current_user, job], :title, as: :input%>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-4">
 				<%= best_in_place [current_user, job], :category, as: :input%>
-				<%=  "#{index}" %>
+				<%=  "index:#{index} job-id:#{job.id}" %>
 				</div>
+					<% job.locations.each do |loc| %>
+						<%= loc.name %>
+					<%end%>
 				<!-- <div class="col-md-2"> -->
 				<%#= render 'new_job_location_select', selector: :cities %>
 				<!-- </div> -->
@@ -63,6 +59,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	craigsListMarketSelectorForJobCreate();
+	// craigsListMarketSelectorForJobUpdate();
+// loadExistingMarkets(<%#= raw current_user.jobs.js_array %>);
 	jQuery(".best_in_place").best_in_place();
 });
 </script>

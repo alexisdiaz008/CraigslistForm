@@ -15,6 +15,7 @@ class JobsController < ApplicationController
   def create
     @job = current_user.jobs.new(job_params)
     if @job.save
+      @job.create_locations(params[:marketGroup]) if params[:marketGroup]
       redirect_to root_path
     else
       render :new

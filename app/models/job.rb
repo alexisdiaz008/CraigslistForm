@@ -6,4 +6,12 @@ class Job < ApplicationRecord
   def self.date_present?(date, job)
     TimeSlot.where(scheduled: date, job_id: job.id).present?
   end
+
+  def js_array
+    locations.map(&:name).to_json
+  end
+
+  def create_locations(locations_array)
+    locations_array.each { |loc| Location.create(name: loc, job_id: self.id)}
+  end
 end
