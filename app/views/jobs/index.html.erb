@@ -62,9 +62,12 @@
 </div>
 
 <script type="text/javascript">
+
 $(document).ready(function() {
-	craigsListMarketSelectorForJobCreate();
-	// craigsListMarketSelectorForJobUpdate();
+
+	marketSelectorCreate();
+	marketSelectorRemoval();
+// craigsListMarketSelectorForJobUpdate();
 // loadExistingMarkets(<%#= raw current_user.jobs.js_array %>);
 	jQuery(".best_in_place").best_in_place();
 });

@@ -43,6 +43,7 @@ loadExistingMarkets = function(collection){
 	$(".existing-locations").tagit({
     	onTagRemoved: function(event, ui){
     		destroyJobObject(ui[0].innerText);
+    		console.log(ui[0])
     	}
     });
   $.each(collection, function(k, v){
@@ -68,10 +69,15 @@ typeAhead = function(initialized_markets){
 	});
 	return typeAhead
 }
+marketSelectorRemoval = function() {
+	$(document).on("click","span.lb-x", function () {
+	   var locationToRemove = $(this).parent().parent().text().slice(0,-1); // or var clickedBtnID = this.id
+	   $("#marketGroup[value='"+locationToRemove+"']").remove();
+	})
+}
 
-craigsListMarketSelectorForJobCreate = function(){
+marketSelectorCreate = function(){
 	$('.existing-locations').tagit();
-	initializeMarkets();
 	var initializedMarkets = initializeMarkets();
 	markets=typeAhead(initializedMarkets);
 	markets.bind("typeahead:selected", function(e, i, o){ 

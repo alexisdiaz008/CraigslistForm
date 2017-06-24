@@ -45,6 +45,11 @@
 	font-size: 16px;
 	color: #2B96C2;
 }
+
+.ui-widget-content.ui-autocomplete-input {
+	display: none;
+}
+
 ul.tagit li.tagit-choice.location-tab {
 	display: inline-block;
 	height: 3.5em;
