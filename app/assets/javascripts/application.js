@@ -104,8 +104,6 @@ marketSelectorInsert = function(){
 	markets.bind("typeahead:selected", function(e, i, o){ 
 	  var market = e.currentTarget.value;
 	  $('.new-job-locations').tagit("createTag", market )
-	  // createJobObject(market, code);
-	  console.log(market);
 	  $('.job-create-location').append("<input id='individualMarket' name='marketGroup[]' type='hidden' value='"+market+"' />");
 		$('.typeahead').typeahead('val', '');
 		$('input#market').val("");

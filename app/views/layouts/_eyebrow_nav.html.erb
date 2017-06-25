@@ -1,0 +1,17 @@
+<div class="eyebrow-nav">
+  <div class="container">
+    <div class="eyebrow-nav__inner-wrapper">
+        <%= link_to(image_tag('https://s3-us-west-2.amazonaws.com/mashedin/images/rlemblem.png', 
+          class:"frl-emblem"), root_path)%>
+
+        <ul class="eyebrow-nav__links">
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete,
+                :class => 'eyebrow-nav__link pull-right'  %>
+            </li>
+          <% end %>
+        </ul>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 <div class="row center">
-	<%= link_to('Logout', destroy_user_session_path, method: :delete, class: "pull-right") %>
 	<h1>JOB ORGANIZER</h1>
 	<p>Start making jobs, today!</p>
 </div>
@@ -19,7 +18,7 @@
 		</div>
 			<%#= render 'new_job_location_select', selector: :cities %>
 		<div class="col-md-2">
-			<%= f.submit "create a job",:class=>"lb-button"  %>
+			<%= f.submit "create a job",:class=>"lb-button" %>
 		</div>
 	<% end %>
 </div>
@@ -48,37 +47,48 @@
 	</div>
 </div>
 <div class="row">
+		<h4 class="col-md-3 center">Job Title</h4>
+		<h4 class="col-md-3">Field of Discipline</h4>
+		<h4 class="col-md-3">Market Location</h4>
+		<h4 class="col-md-3">Dates for Display</h4>
 	<% @jobs.each_with_index do |job, index| %>
-		<div class="col-md-12">
-			<div class="col-md-1">
-			<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
+		<% unless job.id.blank? %>
+			<div class="col-md-12 solid-underline">
+				<div class="col-md-1">
+				<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
+				</div>
+				<div class="col-md-2">
+				<%= best_in_place [current_user, job], :title, as: :input%>
+				</div>
+				<div class="col-md-3">
+				<%= best_in_place [current_user, job], :category, as: :input%>
+				<%#=  "index:#{index} job-id:#{job.id}" %>
+				</div>
+				<div class="col-md-3">
+					<% job.locations.each do |loc| %>
+						<!-- <ul class="existing-locations" style="padding:0px"> -->
+							<%= loc.name %>
+							<br>
+						<!-- <ul> -->
+					<%end%>
+				</div>
+				<div class="col-md-3">
+					<% job.time_slots.each do |time_slot| %>
+						<%= time_slot.scheduled.strftime("%B %d, %Y") %>
+						<br>
+					<%end%>
+				</div>
+				<!-- <div class="col-md-2"> -->
+				<%#= render 'new_job_location_select', selector: :cities %>
+				<!-- </div> -->
+				<%#= render "calendar", job: job %>
 			</div>
-			<div class="col-md-2">
-			<%= best_in_place [current_user, job], :title, as: :input%>
-			</div>
-			<div class="col-md-4">
-			<%= best_in_place [current_user, job], :category, as: :input%>
-			<%=  "index:#{index} job-id:#{job.id}" %>
-			</div>
-			<% job.locations.each do |loc| %>
-				<%= loc.name %>
-			<%end%>
-			<% job.time_slots.each do |time_slot| %>
-				<%= time_slot.scheduled %>
-			<%end%>
-			<!-- <div class="col-md-2"> -->
-			<%#= render 'new_job_location_select', selector: :cities %>
-			<!-- </div> -->
-			<%#= render "calendar", job: job %>
-		</div>
+		<% end %>
 	<% end %>
 </div>
-
+<div class="row">
+</div>
 <script type="text/javascript">
-$(document).ready(function() {
-
-});
-
 $(document).ready(function() {
 	monthSelectorOnChange();
 	marketSelectorInsert();

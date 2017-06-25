@@ -1,0 +1,39 @@
+.bottom {
+  bottom: 0;
+}
+
+.footer {
+  width: 100%;
+  position: absolute;
+	padding: 24px 0;
+	background:#070707;
+}
+.footer__image-wrapper {
+  text-align: center;
+}
+
+.footer__info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer__info-item {
+  flex-basis: 33%;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.footer__info-words {
+  display: block;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 120%;
+}
+
+.footer__info-icon {
+  margin-bottom: 12px;
+}
+
+.frl-logo-white {
+  margin-bottom: 32px;
+}

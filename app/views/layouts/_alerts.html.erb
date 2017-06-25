@@ -1,5 +1,5 @@
 <% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>">
+  <div class="alert alert-<%= key %> fade in">
   	<button type="button" class="close" data-dismiss="alert">×</button>
     <ul>
       <li>
@@ -8,3 +8,18 @@
     </ul>
   </div>
 <% end %>
+
+<style type="text/css">
+.alert-alert {
+    color: #a94442;
+    background-color: #f2dede;
+}
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+}
+.alert-notice {
+	color: #3c763d;
+	background-color: #dff0d8;
+}
+</style>
