@@ -39,6 +39,27 @@ loadScript = function(url, callback){
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
+monthSelectorOnChange = function() {
+	$('#monthSelector').on('change',function(){
+		$('.calendar').children().addClass('hidden')
+	  var month=$(this).val();
+		$('.'+month+'').removeClass('hidden');
+	});
+}
+
+dateSelectorInsertAndRemoval = function() {
+	$('.addDate').bind('click', function() {
+	  date=this.id
+		$("#"+date).children().addClass("greyed-out");
+	  $(".job-create-date").append("<input type='hidden' name='timeSlots[]' id='date' value="+date+" />");
+	  if ($("#date[value='"+date+"']").length>1){
+	  $("#"+date).children().removeClass("greyed-out");
+			$("#date[value='"+date+"']").remove();
+		}
+
+	});
+}
+
 loadExistingMarkets = function(collection){
 	$(".existing-locations").tagit({
     	onTagRemoved: function(event, ui){
@@ -71,21 +92,21 @@ typeAhead = function(initialized_markets){
 }
 marketSelectorRemoval = function() {
 	$(document).on("click","span.lb-x", function () {
-	   var locationToRemove = $(this).parent().parent().text().slice(0,-1); // or var clickedBtnID = this.id
-	   $("#marketGroup[value='"+locationToRemove+"']").remove();
+	   var locationToRemove = $(this).parent().parent().text().slice(0,-1);
+	   $("#individualMarket[value='"+locationToRemove+"']").remove();
 	})
 }
 
-marketSelectorCreate = function(){
-	$('.existing-locations').tagit();
+marketSelectorInsert = function(){
+	$('.new-job-locations').tagit();
 	var initializedMarkets = initializeMarkets();
 	markets=typeAhead(initializedMarkets);
 	markets.bind("typeahead:selected", function(e, i, o){ 
 	  var market = e.currentTarget.value;
-	  $('.existing-locations').tagit("createTag", market )
+	  $('.new-job-locations').tagit("createTag", market )
 	  // createJobObject(market, code);
 	  console.log(market);
-	  $('.job-create-location').append("<input id='marketGroup' name='marketGroup[]' type='hidden' value='"+market+"' />");
+	  $('.job-create-location').append("<input id='individualMarket' name='marketGroup[]' type='hidden' value='"+market+"' />");
 		$('.typeahead').typeahead('val', '');
 		$('input#market').val("");
 	});
@@ -94,7 +115,7 @@ marketSelectorCreate = function(){
 		$('input#market').val("");
 	});
 }
-craigsListMarketSelectorForJobUpdate = function(){
+craigsListMarketSelectorUpdate = function(){
 	var markets = initializeMarkets();
 	market=typeAhead(markets);
 	market.bind("typeahead:selected", function(e, i, o){ 

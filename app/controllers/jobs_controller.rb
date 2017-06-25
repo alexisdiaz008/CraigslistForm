@@ -6,6 +6,7 @@ class JobsController < ApplicationController
     @job = current_user.jobs.new
     @jobs = current_user.jobs
     @calendar_range=(Time.now.to_date.beginning_of_month .. Time.now.end_of_year-1.day)
+    @month_range=@calendar_range.map {|date| date.beginning_of_month ? date.strftime("%B") : ""}.uniq!
   end
 
   def new
@@ -16,6 +17,7 @@ class JobsController < ApplicationController
     @job = current_user.jobs.new(job_params)
     if @job.save
       @job.create_locations(params[:marketGroup]) if params[:marketGroup]
+      @job.create_time_slots(params[:timeSlots]) if params[:timeSlots]
       redirect_to root_path
     else
       render :new

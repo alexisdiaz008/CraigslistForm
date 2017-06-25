@@ -1,6 +1,6 @@
 <div class="row center">
-<h1>JOB ORGANIZER</h1>
-<p>Start making jobs, today!</p>
+	<h1>JOB ORGANIZER</h1>
+	<p>Start making jobs, today!</p>
 </div>
 <div class="row margin-bottom">
 	<%= form_for([current_user, @job]) do |f| %>
@@ -10,16 +10,12 @@
 		<div class="col-md-2">
 			<%= f.select :category, options_for_select(job_template_category_options, @job), {}, {:class=>'form-control', placeholder: 'category'} %>
 		</div>
-
-
-	<div class="col-md-2 job-create-location">
-		<%= text_field_tag :market, nil, class: 'typeahead form-control', placeholder: 'Market' %>
-	</div>
-
-		<div class="col-md-2">
-			<%= select_tag :months,['Female','Male','Both','N/A'], class: "form-control" %>
+		<div class="col-md-2 job-create-location">
+			<%= text_field_tag :market, nil, class: 'typeahead form-control', placeholder: 'Market' %>
 		</div>
-
+		<div class="col-md-2 job-create-date">
+			<%= select_tag 'months', options_for_select(@month_range), class: "form-control", :id => "monthSelector", include_blank: "Choose a Month"  %>
+		</div>
 			<%#= render 'new_job_location_select', selector: :cities %>
 		<div class="col-md-2">
 			<%= f.submit "create a job",:class=>"lb-button"  %>
@@ -27,47 +23,67 @@
 	<% end %>
 </div>
 <div class="row">
-
-
-<div class="row">
 	<div class="form-group">
-		<ul class="existing-locations" style="padding:0px">
-			<% @job.locations.each do |location| %>
-
-			<% end %>
+		<ul class="new-job-locations" style="padding:0px">
 		<ul>
 	</div>
+	<div class="calendar row col-md-12">
+	  <% @calendar_range.each do |date| %>
+	    <% if date == date.beginning_of_month %>
+	      <div class="row <%= date.strftime("%B") %> hidden">
+	        <div class="row center month col-md-12"> <%= date.strftime("%B") %> </div>
+	      </div>
+	    <% end %>
+      <div class="addDate available <%= date.strftime("%B") %> hidden" id="<%= date.to_s %>">
+        <div class="col-md-1 center days">
+          <div id="date-container">
+            <%= date.day %>
+          </div>
+        </div>
+      </div>
+	    </tr>
+	    <tr>
+	  <% end %>
+	</div>
 </div>
-		<% @jobs.each_with_index do |job, index| %>
-			<div class="col-md-12">
-				<div class="col-md-1">
-				<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
-				</div>
-				<div class="col-md-2">
-				<%= best_in_place [current_user, job], :title, as: :input%>
-				</div>
-				<div class="col-md-4">
-				<%= best_in_place [current_user, job], :category, as: :input%>
-				<%=  "index:#{index} job-id:#{job.id}" %>
-				</div>
-					<% job.locations.each do |loc| %>
-						<%= loc.name %>
-					<%end%>
-				<!-- <div class="col-md-2"> -->
-				<%#= render 'new_job_location_select', selector: :cities %>
-				<!-- </div> -->
-				<%#= render "calendar", job: job %>
+<div class="row">
+	<% @jobs.each_with_index do |job, index| %>
+		<div class="col-md-12">
+			<div class="col-md-1">
+			<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
 			</div>
-		<% end %>
+			<div class="col-md-2">
+			<%= best_in_place [current_user, job], :title, as: :input%>
+			</div>
+			<div class="col-md-4">
+			<%= best_in_place [current_user, job], :category, as: :input%>
+			<%=  "index:#{index} job-id:#{job.id}" %>
+			</div>
+			<% job.locations.each do |loc| %>
+				<%= loc.name %>
+			<%end%>
+			<% job.time_slots.each do |time_slot| %>
+				<%= time_slot.scheduled %>
+			<%end%>
+			<!-- <div class="col-md-2"> -->
+			<%#= render 'new_job_location_select', selector: :cities %>
+			<!-- </div> -->
+			<%#= render "calendar", job: job %>
+		</div>
+	<% end %>
 </div>
 
 <script type="text/javascript">
-
 $(document).ready(function() {
 
-	marketSelectorCreate();
+});
+
+$(document).ready(function() {
+	monthSelectorOnChange();
+	marketSelectorInsert();
 	marketSelectorRemoval();
-// craigsListMarketSelectorForJobUpdate();
+	dateSelectorInsertAndRemoval();
+// craigsListMarketSelectorUpdate();
 // loadExistingMarkets(<%#= raw current_user.jobs.js_array %>);
 	jQuery(".best_in_place").best_in_place();
 });

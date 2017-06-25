@@ -14,4 +14,8 @@ class Job < ApplicationRecord
   def create_locations(locations_array)
     locations_array.each { |loc| Location.create(name: loc, job_id: self.id)}
   end
+
+  def create_time_slots(time_slots_array)
+    time_slots_array.each { |time_slot| TimeSlot.create(scheduled: time_slot, job_id: self.id)}
+  end
 end
