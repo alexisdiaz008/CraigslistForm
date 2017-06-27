@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Job Title</Data></Cell>
+        <Cell><Data ss:Type="String">Fields</Data></Cell>
+        <Cell><Data ss:Type="String">Market Location</Data></Cell>
+        <Cell><Data ss:Type="String">Dates for Display</Data></Cell>
+      </Row>
+    <% @jobs.each do |job| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= job.title %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= job.category %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= job.locations.each { |loc| loc.name } %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= job.sorted_dates.each {|time_slot| time_slot.humanize_time_slot } %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

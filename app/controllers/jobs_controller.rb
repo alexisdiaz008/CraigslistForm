@@ -7,6 +7,11 @@ class JobsController < ApplicationController
     @jobs = current_user.jobs
     @calendar_range=(Time.now.to_date.beginning_of_month .. Time.now.end_of_year-1.day)
     @month_range=@calendar_range.map {|date| date.beginning_of_month ? date.strftime("%B") : ""}.uniq!
+    respond_to do |format|
+      format.html
+      format.csv { send_data @jobs.to_csv }
+      format.xls
+    end
   end
 
   def new

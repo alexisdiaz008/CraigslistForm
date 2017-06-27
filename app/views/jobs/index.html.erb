@@ -20,6 +20,13 @@
 		<div class="col-md-2">
 			<%= f.submit "create a job",:class=>"lb-button" %>
 		</div>
+		<div class="col-md-2">
+			<p>
+			  Download:
+			  <%= link_to "CSV", root_path(format: "csv") %> |
+			  <%= link_to "Excel", root_path(format: "xls") %>
+			</p>
+		</div>
 	<% end %>
 </div>
 <div class="row">
@@ -48,7 +55,7 @@
 </div>
 <div class="row">
 		<h4 class="col-md-3 center">Job Title</h4>
-		<h4 class="col-md-3">Field of Discipline</h4>
+		<h4 class="col-md-3">Category</h4>
 		<h4 class="col-md-3">Market Location</h4>
 		<h4 class="col-md-3">Dates for Display</h4>
 	<% @jobs.each_with_index do |job, index| %>
@@ -73,8 +80,8 @@
 					<%end%>
 				</div>
 				<div class="col-md-3">
-					<% job.time_slots.each do |time_slot| %>
-						<%= time_slot.scheduled.strftime("%B %d, %Y") %>
+					<% job.sorted_dates.each do |time_slot| %>
+						<%= time_slot.humanize_time_slot %>
 						<br>
 					<%end%>
 				</div>
