@@ -1,6 +1,6 @@
 <div class="row center">
 	<h1>JOB ORGANIZER</h1>
-	<p>Start making jobs, today!</p>
+	<p>Create making jobs, today!</p>
 </div>
 <div class="row margin-bottom">
 	<%= form_for([current_user, @job]) do |f| %>
@@ -23,8 +23,7 @@
 		<div class="col-md-2">
 			<p>
 			  Download:
-			  <%= link_to "CSV", root_path(format: "csv") %> |
-			  <%= link_to "Excel", root_path(format: "xls") %>
+			  <%= link_to "CSV", user_jobs_path(current_user, format: :csv) %> 
 			</p>
 		</div>
 	<% end %>
@@ -97,12 +96,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-	monthSelectorOnChange();
-	marketSelectorInsert();
-	marketSelectorRemoval();
-	dateSelectorInsertAndRemoval();
+	jobIndexScripts();
+	
 // craigsListMarketSelectorUpdate();
 // loadExistingMarkets(<%#= raw current_user.jobs.js_array %>);
-	jQuery(".best_in_place").best_in_place();
 });
 </script>

@@ -19,6 +19,13 @@
 //= require best_in_place
 //= require_tree .
 
+jobIndexScripts = function(){
+	monthSelectorOnChange();
+	marketSelectorInsert();
+	marketSelectorRemoval();
+	dateSelectorInsertAndRemoval();
+}
+
 loadScript = function(url, callback){
 	var script = document.createElement("script");
 	script.type = "text/javascript";

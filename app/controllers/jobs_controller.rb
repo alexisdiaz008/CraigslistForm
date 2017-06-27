@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_job, only: [:show, :update, :destroy]
+  respond_to :html, :xls, :csv
 
   def index
     @job = current_user.jobs.new
@@ -9,8 +10,7 @@ class JobsController < ApplicationController
     @month_range=@calendar_range.map {|date| date.beginning_of_month ? date.strftime("%B") : ""}.uniq!
     respond_to do |format|
       format.html
-      format.csv { send_data @jobs.to_csv }
-      format.xls
+      format.csv { send_data Job.to_csv(@jobs) }
     end
   end
 
