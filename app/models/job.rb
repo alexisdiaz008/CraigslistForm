@@ -11,29 +11,29 @@ class Job < ApplicationRecord
     CSV.generate() do |csv|
       csv << ["Title", "Field", "Locations", "Times"]
       collection.each do |job|
-          locs=job.locations
-          times=job.sorted_dates
-          max, min= job.locations.count > job.time_slots.count ? [locs,times] : [times, locs]
-          combined_array=max.zip(min)
-          if combined_array[0][0].class == TimeSlot
-            combined_array=combined_array.map {|array|[(array[0].blank? ? nil : array[0].scheduled), (array[1].blank? ? nil : array[1].name)]}
-            combined_array.each_with_index do |val_pair, index|
-              if index.eql?(0)
-                csv << [job.title, job.category, val_pair[1], val_pair[0]]
-                else
-                csv << [nil, nil, val_pair[1], val_pair[0]]
-              end
-            end
-          else
-            combined_array=combined_array.map {|array|[(array[1].blank? ? nil : array[1].name), (array[0].blank? ? nil : array[0].scheduled)]}
-            combined_array.each_with_index do |val_pair, index|
-              if index.eql?(0)
-                csv << [job.title, job.category, val_pair[0], val_pair[1]]
-                else
-                csv << [nil, nil, val_pair[0], val_pair[1]]
-              end
+        locs=job.locations
+        times=job.sorted_dates
+        max, min= job.locations.count > job.time_slots.count ? [locs,times] : [times, locs]
+        combined_array=max.zip(min)
+        if combined_array[0][0].class == TimeSlot
+          combined_array=combined_array.map {|array|[(array[0].blank? ? nil : array[0].scheduled), (array[1].blank? ? nil : array[1].name)]}
+          combined_array.each_with_index do |val_pair, index|
+            if index.eql?(0)
+              csv << [job.title, job.category, val_pair[1], val_pair[0]]
+              else
+              csv << [nil, nil, val_pair[1], val_pair[0]]
             end
           end
+        else
+          combined_array=combined_array.map {|array|[(array[1].blank? ? nil : array[1].name), (array[0].blank? ? nil : array[0].scheduled)]}
+          combined_array.each_with_index do |val_pair, index|
+            if index.eql?(0)
+              csv << [job.title, job.category, val_pair[0], val_pair[1]]
+              else
+              csv << [nil, nil, val_pair[0], val_pair[1]]
+            end
+          end
+        end
       end
     end
   end

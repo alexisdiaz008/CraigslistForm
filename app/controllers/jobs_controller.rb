@@ -4,7 +4,7 @@ class JobsController < ApplicationController
   respond_to :html, :xls, :csv
 
   def index
-    @job = current_user.jobs.new
+    @job = Job.new
     @jobs = current_user.jobs
     @calendar_range=(Time.now.to_date.beginning_of_month .. Time.now.end_of_year-1.day)
     @month_range=@calendar_range.map {|date| date.beginning_of_month ? date.strftime("%B") : ""}.uniq!

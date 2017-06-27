@@ -58,38 +58,36 @@
 		<h4 class="col-md-3">Market Location</h4>
 		<h4 class="col-md-3">Dates for Display</h4>
 	<% @jobs.each_with_index do |job, index| %>
-		<% unless job.id.blank? %>
-			<div class="col-md-12 solid-underline">
-				<div class="col-md-1">
-				<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
-				</div>
-				<div class="col-md-2">
-				<%= best_in_place [current_user, job], :title, as: :input%>
-				</div>
-				<div class="col-md-3">
-				<%= best_in_place [current_user, job], :category, as: :input%>
-				<%#=  "index:#{index} job-id:#{job.id}" %>
-				</div>
-				<div class="col-md-3">
-					<% job.locations.each do |loc| %>
-						<!-- <ul class="existing-locations" style="padding:0px"> -->
-							<%= loc.name %>
-							<br>
-						<!-- <ul> -->
-					<%end%>
-				</div>
-				<div class="col-md-3">
-					<% job.sorted_dates.each do |time_slot| %>
-						<%= time_slot.humanize_time_slot %>
-						<br>
-					<%end%>
-				</div>
-				<!-- <div class="col-md-2"> -->
-				<%#= render 'new_job_location_select', selector: :cities %>
-				<!-- </div> -->
-				<%#= render "calendar", job: job %>
+		<div class="col-md-12 solid-underline">
+			<div class="col-md-1">
+			<%= link_to "", [current_user, job], :method  => :delete, class:"fa fa-trash-o", data: { confirm: "Are you sure you want to delete #{job.title}?" } %>
 			</div>
-		<% end %>
+			<div class="col-md-2">
+			<%= best_in_place [current_user, job], :title, as: :input%>
+			</div>
+			<div class="col-md-3">
+			<%= best_in_place [current_user, job], :category, as: :input%>
+			<%#=  "index:#{index} job-id:#{job.id}" %>
+			</div>
+			<div class="col-md-3">
+				<% job.locations.each do |loc| %>
+					<!-- <ul class="existing-locations" style="padding:0px"> -->
+						<%= loc.name %>
+						<br>
+					<!-- <ul> -->
+				<%end%>
+			</div>
+			<div class="col-md-3">
+				<% job.sorted_dates.each do |time_slot| %>
+					<%= time_slot.humanize_time_slot %>
+					<br>
+				<%end%>
+			</div>
+			<!-- <div class="col-md-2"> -->
+			<%#= render 'new_job_location_select', selector: :cities %>
+			<!-- </div> -->
+			<%#= render "calendar", job: job %>
+		</div>
 	<% end %>
 </div>
 <div class="row">
