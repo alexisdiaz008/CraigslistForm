@@ -25,7 +25,8 @@ class JobsController < ApplicationController
       @job.create_time_slots(params[:timeSlots]) if params[:timeSlots]
       redirect_to root_path
     else
-      render :new
+      redirect_to root_path
+      flash[:alert] = "Must create at least one Time Slot!"
     end
   end
 

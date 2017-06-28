@@ -2,6 +2,8 @@ class Job < ApplicationRecord
   belongs_to :user
   has_many :locations, dependent: :destroy
   has_many :time_slots, dependent: :destroy
+  validates :locations, presence: true
+  validates :time_slots, presence: true
 
   def sorted_dates
     self.time_slots.sort_by(&:scheduled)
