@@ -26,7 +26,7 @@ class JobsController < ApplicationController
       redirect_to root_path
     else
       redirect_to root_path
-      flash[:alert] = "Must create at least one Time Slot!"
+      params[:marketGroup] ? flash[:alert] = "Must choose a date." : flash[:alert] = "Must choose a location."      
     end
   end
 
