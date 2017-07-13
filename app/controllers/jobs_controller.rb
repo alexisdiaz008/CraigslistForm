@@ -20,13 +20,19 @@ class JobsController < ApplicationController
 
   def create
     @job = current_user.jobs.new(job_params)
-    if @job.save
+    if params[:timeSlots].blank?
+      flash[:alert] = "Must choose a date."
+      redirect_to root_path
+    elsif params[:marketGroup].blank?
+      flash[:alert] = "Must choose a location." 
+      redirect_to root_path
+    elsif @job.save
       @job.create_locations(params[:marketGroup]) if params[:marketGroup]
       @job.create_time_slots(params[:timeSlots]) if params[:timeSlots]
       redirect_to root_path
     else
+      flash[:alert]="#{@job.save!}"
       redirect_to root_path
-      params[:marketGroup] ? flash[:alert] = "Must choose a date." : flash[:alert] = "Must choose a location."      
     end
   end
 
