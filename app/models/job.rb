@@ -27,7 +27,7 @@ class Job < ApplicationRecord
             end
           end
         else
-          combined_array=combined_array.map {|array|[(array[1].blank? ? nil : array[1].name), (array[0].blank? ? nil : array[0].scheduled)]}
+          combined_array=combined_array.map {|array|[(array[0].blank? ? nil : array[0].name), (array[1].blank? ? nil : array[1].scheduled)]}
           combined_array.each_with_index do |val_pair, index|
             if index.eql?(0)
               csv << [job.title, job.category, val_pair[0], val_pair[1]]
