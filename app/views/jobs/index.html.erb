@@ -54,8 +54,9 @@
 <div class="row">
 		<h4 class="col-md-3 center">Job Title</h4>
 		<h4 class="col-md-3">Category</h4>
-		<h4 class="col-md-3">Market Location</h4>
-		<h4 class="col-md-3">Dates for Display</h4>
+		<h4 class="col-md-2">Market Location</h4>
+		<h4 class="col-md-2">Market Location Price</h4>
+		<h4 class="col-md-2">Dates for Display</h4>
 	<% @jobs.each_with_index do |job, index| %>
 		<div class="col-md-12 solid-underline">
 			<div class="col-md-1">
@@ -67,13 +68,19 @@
 			<div class="col-md-3">
 			<%= best_in_place [current_user, job], :category, as: :input%>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-2">
 				<% job.locations.each do |loc| %>
 						<%= best_in_place [current_user, job, loc], :name, as: :input%>
 						<br>
 				<%end%>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-2">
+				<% job.locations.each do |loc| %>
+						<%= loc.value ? loc.value : "price not found"%>
+						<br>
+				<%end%>
+			</div>
+			<div class="col-md-2">
 				<% job.sorted_dates.each do |time_slot| %>
 					<%= best_in_place [current_user, job, time_slot], :scheduled, as: :select, collection: @calendar_range.to_a.map {|date| [date, date.strftime("%B %d, %Y")]} %>
 					<br>

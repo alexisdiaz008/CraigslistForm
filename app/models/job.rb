@@ -50,6 +50,7 @@ class Job < ApplicationRecord
 
   def create_locations(locations_array)
     locations_array.each { |loc| Location.create(name: loc, job_id: self.id)}
+    Location.update_values
   end
 
   def create_time_slots(time_slots_array)
