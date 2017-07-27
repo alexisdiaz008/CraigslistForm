@@ -1,2 +1,79 @@
-<h1>Jobs#new</h1>
-<p>Find me in app/views/jobs/new.html.erb</p>
+<div class="row center">
+	<h1>JOB ORGANIZER</h1>
+	<p>Use <%= @previous_job.title %> as a template for a new job!</p>
+</div>
+<div class="row margin-bottom">
+	<%= form_for([current_user, @job]) do |f| %>
+		<div class="col-md-2">
+			<%= f.text_field :title, class:"form-control", placeholder: "Title", value: "#{@previous_job.title}" %>
+		</div>
+		<div class="col-md-2">
+			<%= f.select :category, options_for_select(job_template_category_options, selected: "#{@previous_job.category}"), {}, {:class=>'form-control'} %>
+		</div>
+		<div class="col-md-2">
+			<%= f.text_field :apply_url, class:"form-control", placeholder: "Apply Url", value: "#{@previous_job.apply_url}" %>
+		</div>
+		<div class="col-md-2 job-create-location">
+			<%= text_field_tag :market, nil, class: 'typeahead form-control', placeholder: 'Market' %>
+		</div>
+		<div class="col-md-2 job-create-date">
+			<%= select_tag 'months', options_for_select(@month_range), class: "form-control", :id => "monthSelector", include_blank: "Choose a Month"  %>
+		</div>
+		<div class="col-md-2">
+			<%= f.submit "create a job",:class=>"lb-button" %>
+		</div>
+	<% end %>
+</div>
+<div class="row">
+	<div class="form-group">
+		<ul class="new-job-locations" style="padding:0px">
+		<ul>
+	</div>
+	<div class="calendar row col-md-12">
+	  <% @calendar_range.each do |date| %>
+	    <% if date == date.beginning_of_month %>
+	      <div class="row <%= date.strftime("%B") %> hidden">
+	        <div class="row center month col-md-12"> <%= date.strftime("%B") %><br> <%= date.strftime("%Y") %> </div>
+	      </div>
+	      <div class="margin-top seven-cols row center <%= date.strftime("%B") %> hidden">
+	      	<% @days_of_week.each do |day| %>
+		      	<div class="col-md-1">
+		      		<%= day %>
+		      	</div>
+	      	<% end %>
+	      </div>
+	      <% unless date.strftime("%A")=="Sunday" %>
+	      	<% @days_of_week.index(date.strftime("%A")).times do %>
+			      <div class="seven-cols <%= date.strftime("%B") %> hidden" >
+			        <div class="col-md-1 center days">
+			        </div>
+			      </div>
+		      <% end %>
+      	<% end %>
+	    <% end %>
+      <div class="seven-cols addDate available <%= date.strftime("%B")%> hidden" id="<%= date.to_s %>">
+        <div class="col-md-1 center days">
+          <div id="date-container">
+            <%= date.day %>
+          </div>
+        </div>
+      </div>
+	  <% end %>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		jobIndexScripts();
+		<% @previous_job.locations.each do |loc| %>
+			$('.job-create-location').append("<input id='individualMarket' name='marketGroup[]' type='hidden' value='"+"<%= loc.name%>"+"' />");
+			$('.new-job-locations').tagit("createTag", "<%= loc.name%>" )
+		<% end %>		
+		<% @previous_job.time_slots.each do |slot| %>
+			$(".job-create-date").append("<input type='hidden' name='timeSlots[]' id='date' value="+"<%= slot.scheduled.to_s %> "+" />");
+			$("#"+"<%= slot.scheduled.to_s %>").children().addClass("greyed-out");
+		<% end %>
+		jQuery(".best_in_place").best_in_place();
+	});
+</script>
+

@@ -30,6 +30,6 @@ before_action :set_location, only: [:show, :update, :destroy]
   end
 
   def location_params
-    params.require(:location).permit(:name)
+    params.require(:location).permit(:name, :value)
   end
 end

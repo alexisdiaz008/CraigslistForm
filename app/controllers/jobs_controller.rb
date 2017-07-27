@@ -1,13 +1,12 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_job, only: [:show, :update, :destroy]
+  before_action :set_date_range, only: [:index, :new]
   respond_to :html, :xls, :csv
 
   def index
     @job = Job.new
     @jobs = current_user.jobs
-    @calendar_range=(Time.now.to_date.beginning_of_month .. Time.now.end_of_year-1.day)
-    @month_range=@calendar_range.map {|date| date.beginning_of_month ? date.strftime("%B") : ""}.uniq!
     respond_to do |format|
       format.html
       format.csv { send_data Job.to_csv(@jobs) }
@@ -15,7 +14,8 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = current_user.jobs.new
+    @previous_job=Job.find(params[:job_id])
+    @job = Job.new
   end
 
   def create
@@ -53,11 +53,17 @@ class JobsController < ApplicationController
 
   private
 
+  def set_date_range
+    @calendar_range=(Time.now.to_date.beginning_of_year .. Time.now.end_of_year-1.day)
+    @month_range=@calendar_range.map {|date| date.beginning_of_month ? date.strftime("%B") : ""}.uniq!
+    @days_of_week = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+  end
+
   def set_job
     @job = Job.find(params[:id])
   end
 
   def job_params
-    params.require(:job).permit(:title, :category)
+    params.require(:job).permit(:title, :category, :apply_url)
   end
 end

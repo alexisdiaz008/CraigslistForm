@@ -12,7 +12,6 @@ module ApplicationHelper
 
 	def job_template_category_options
 		[
-			['Transportation', 'transportation'], 
 			["accounting/finance", "accounting/finance"], 
 			["admin/office", "admin/office"], 
 			["architect/engineer/cad (no IT/computer jobs here please)", "architect/engineer/cad"], 

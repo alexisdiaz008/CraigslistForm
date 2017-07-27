@@ -11,28 +11,28 @@ class Job < ApplicationRecord
 
   def self.to_csv(collection)
     CSV.generate() do |csv|
-      csv << ["Title", "Field", "Locations", "Times"]
+      csv << ["Title", "Field", "Locations", "Locations Price", "Times"]
       collection.each do |job|
         locs=job.locations
         times=job.sorted_dates
         max, min= job.locations.count > job.time_slots.count ? [locs,times] : [times, locs]
         combined_array=max.zip(min)
         if combined_array[0][0].class == TimeSlot
-          combined_array=combined_array.map {|array|[(array[0].blank? ? nil : array[0].scheduled), (array[1].blank? ? nil : array[1].name)]}
+          combined_array=combined_array.map {|array|[(array[0].blank? ? nil : array[0].scheduled), (array[1].blank? ? nil : array[1].name), (array[1].blank? ? nil : array[1].value)]}
           combined_array.each_with_index do |val_pair, index|
             if index.eql?(0)
-              csv << [job.title, job.category, val_pair[1], val_pair[0]]
+              csv << [job.title, job.category, val_pair[1],val_pair[2], val_pair[0]]
               else
-              csv << [nil, nil, val_pair[1], val_pair[0]]
+              csv << [nil, nil, val_pair[1], val_pair[2], val_pair[0]]
             end
           end
         else
-          combined_array=combined_array.map {|array|[(array[0].blank? ? nil : array[0].name), (array[1].blank? ? nil : array[1].scheduled)]}
+          combined_array=combined_array.map {|array|[(array[0].blank? ? nil : array[0].name), (array[0].blank? ? nil : array[0].value), (array[1].blank? ? nil : array[1].scheduled)]}
           combined_array.each_with_index do |val_pair, index|
             if index.eql?(0)
-              csv << [job.title, job.category, val_pair[0], val_pair[1]]
+              csv << [job.title, job.category, val_pair[0], val_pair[1], val_pair[2]]
               else
-              csv << [nil, nil, val_pair[0], val_pair[1]]
+              csv << [nil, nil, val_pair[0], val_pair[1], val_pair[2]]
             end
           end
         end

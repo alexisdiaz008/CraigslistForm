@@ -63,7 +63,6 @@ dateSelectorInsertAndRemoval = function() {
 	  $("#"+date).children().removeClass("greyed-out");
 			$("#date[value='"+date+"']").remove();
 		}
-
 	});
 }
 
