@@ -63,17 +63,15 @@
 </div>
 
 <script type="text/javascript">
+document.addEventListener("turbolinks:load", function() {
 	$(document).ready(function() {
 		jobIndexScripts();
+		jQuery(".best_in_place").best_in_place();
 		<% @previous_job.locations.each do |loc| %>
 			$('.job-create-location').append("<input id='individualMarket' name='marketGroup[]' type='hidden' value='"+"<%= loc.name%>"+"' />");
 			$('.new-job-locations').tagit("createTag", "<%= loc.name%>" )
-		<% end %>		
-		<% @previous_job.time_slots.each do |slot| %>
-			$(".job-create-date").append("<input type='hidden' name='timeSlots[]' id='date' value="+"<%= slot.scheduled.to_s %> "+" />");
-			$("#"+"<%= slot.scheduled.to_s %>").children().addClass("greyed-out");
 		<% end %>
-		jQuery(".best_in_place").best_in_place();
 	});
+});
 </script>
 

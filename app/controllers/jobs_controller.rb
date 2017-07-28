@@ -7,6 +7,10 @@ class JobsController < ApplicationController
   def index
     @job = Job.new
     @jobs = current_user.jobs
+    if params[:date]
+      date=params[:date]
+      @jobs = current_user.jobs.joins(:time_slots).where(time_slots: {scheduled: "#{date['start_date(1i)']}-#{date['start_date(2i)']}-#{date['start_date(3i)']}"})
+    end
     respond_to do |format|
       format.html
       format.csv { send_data Job.to_csv(@jobs) }

@@ -25,7 +25,10 @@
 	<% end %>
 </div>
 <div class="row">
-	<p class="pull-right">
+	<div class="col-md-11">
+		<%= render "date_search" %>
+	</div>
+	<p class="col-md-1">
 	  Download:
 	  <%= link_to "CSV", user_jobs_path(current_user, format: :csv) %> 
 	</p>
@@ -105,7 +108,7 @@
 						<br>
 				<%end%>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-2 dates-container">
 				<% job.sorted_dates.each do |time_slot| %>
 					<%= best_in_place [current_user, job, time_slot], :scheduled, as: :select, collection: @calendar_range.to_a.map {|date| [date, date.strftime("%B %d, %Y")]} %>
 					<br>

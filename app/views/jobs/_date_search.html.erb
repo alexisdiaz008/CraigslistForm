@@ -1,0 +1,18 @@
+  <%= form_tag(root_path, method: "GET") do %>
+    <div class="col-md-10">
+      <%= date_select(
+        "date",
+        "start_date", 
+        {
+          discard_day: false,
+          start_year: Date.current.year,  
+          prompt: { 
+	          				day: 'Day',
+          					month: 'Month', 
+          					year: 'Year' 
+          				}, 
+          selected: @search_date}, 
+        class: "date-search") %>
+    </div>
+    <%= submit_tag("Search by Date", class: "btn lb-button col-md-2") %>
+  <% end %>
