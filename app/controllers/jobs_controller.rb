@@ -8,8 +8,8 @@ class JobsController < ApplicationController
     @job = Job.new
     @jobs = current_user.jobs
     if params[:date]
-      date=params[:date]
-      @jobs = current_user.jobs.joins(:time_slots).where(time_slots: {scheduled: "#{date['start_date(1i)']}-#{date['start_date(2i)']}-#{date['start_date(3i)']}"})
+      @search_date="#{params[:date]['start_date(1i)']}-#{params[:date]['start_date(2i)']}-#{params[:date]['start_date(3i)']}"
+      @jobs = current_user.jobs.joins(:time_slots).where(time_slots: {scheduled: @search_date})
     end
     respond_to do |format|
       format.html

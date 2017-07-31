@@ -11,7 +11,7 @@
           					month: 'Month', 
           					year: 'Year' 
           				}, 
-          selected: @search_date}, 
+          selected: (@search_date ? @search_date.to_date : nil)}, 
         class: "date-search") %>
     </div>
     <%= submit_tag("Search by Date", class: "btn lb-button col-md-2") %>
