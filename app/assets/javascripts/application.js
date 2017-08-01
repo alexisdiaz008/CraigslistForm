@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require turbolinks
 //= require tag-it
 //= require twitter/typeahead.min
 //= require best_in_place
@@ -50,7 +49,10 @@ monthSelectorOnChange = function() {
 	$('#monthSelector').on('change',function(){
 		$('.calendar').children().addClass('hidden')
 	  var month=$(this).val();
+	  if (month) {
 		$('.'+month+'').removeClass('hidden');
+		console.log(month);
+		}
 	});
 }
 
